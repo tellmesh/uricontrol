@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-06-18 13:16:56
+# Generated: 2026-10-04 00:33:42
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -22,7 +22,7 @@ versioning:
   files:
   - VERSION
   - pyproject.toml:version
-  - venv/lib/python3.13/site-packages/cryptography/__init__.py:__version__
+  - core/node/uri-control/package.json:version
   bump_rules:
     patch: 10
     minor: 50
@@ -220,11 +220,26 @@ git:
     enabled: true
     prefix: v
     format: '{prefix}{version}'
+publishing:
+  enabled: true
+  registries:
+  - pypi
+  dry_run: false
+  fallback:
+    github_release:
+      enabled: true
+      owner: tellmesh
+      repo: uricontrol
+      repo_map: {}
+      token_env: GITHUB_TOKEN
+      skip_pypi_retries_on_block: true
+      create_on_tag: false
+      asset_glob: dist/*
 strategies:
   python:
     test: python -m pytest tests/ -q
     build: python -m build
-    publish: twine upload dist/uricontrol-{version}*
+    publish: twine upload --skip-existing dist/uricontrol-{version}*
     publish_enabled: true
     dependencies:
       file: requirements.txt
@@ -245,6 +260,10 @@ strategies:
     dependencies:
       file: Cargo.lock
       lock: cargo update
+  go:
+    test: 'true'
+  php:
+    test: 'true'
 registries:
   pypi:
     url: https://pypi.org/simple/
@@ -252,19 +271,6 @@ registries:
   npm:
     url: https://registry.npmjs.org/
     token_env: NPM_TOKEN
-publishing:
-  enabled: true
-  registries:
-  - pypi
-  fallback:
-    github_release:
-      enabled: true
-      owner: tellmesh
-      repo: uricontrol
-      repo_map: {}
-      token_env: GITHUB_TOKEN
-      skip_pypi_retries_on_block: true
-      asset_glob: dist/*
 hooks:
   pre_commit: ''
   post_commit: ''

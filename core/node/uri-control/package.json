@@ -1,6 +1,6 @@
 {
   "name": "@uricore/uri-control",
-  "version": "0.1.0",
+  "version": "0.1.16",
   "private": true,
   "type": "module",
   "description": "Thin Node/TypeScript placeholder for uricore URI control runtime.",

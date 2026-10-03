@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uricontrol"
-version = "0.1.15"
+version = "0.1.16"
 description = "Thin URI-native control-plane core for software, services and devices."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -41,7 +41,7 @@ mqtt = [
 dev = [
   "pytest>=8.0",
   "ruff>=0.6.0",
-  "goal>=2.1.0",
+  "goal>=2.1.0; python_version >= '3.12'",
   "costs>=0.1.20",
   "pfix>=0.1.60",
 ]
